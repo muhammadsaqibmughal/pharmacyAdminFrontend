@@ -1,0 +1,25 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..800;1,100..800&display=swap');
+@import "tailwindcss";
+/* src/index.css */
+
+@theme {
+  --font-family: "Montserrat", sans-serif;
+  --color-primary-50: #212121;
+  --color-secondary-50: #757575;
+  --color-success-50: #4CAF50;
+  --color-warning-50: #D32F2F;
+  --color-hf-50: #0D47A1;
+  --color-bg-50: #FF8E29;
+  --color-db-50: #F5F5F5;
+  --color-selected-50: #e6761f;
+}
+
+
+html, body {
+  background: #F5F5F5;
+  color: aliceblue;
+  overflow: auto;
+  scroll-behavior: smooth;
+  /* height: 100dvh; */
+  font-family: var(--font-family);
+}

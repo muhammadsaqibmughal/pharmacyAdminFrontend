@@ -37,7 +37,7 @@ const AdminLogin = () => {
           Pharmacy Admin Login
         </h2>
         {loginError && (
-          <div className="mb-4 text-center text-[#D32F2F]font-semibold">
+          <div className="mb-4 text-center text-[#D32F2F] font-semibold">
             {loginError}
           </div>
         )}

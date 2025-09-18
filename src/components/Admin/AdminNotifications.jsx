@@ -49,7 +49,6 @@ const mockNotifications = [
 const AdminNotifications = () => {
   const [notifications, setNotifications] = useState(mockNotifications);
   const [filter, setFilter] = useState("all");
-  const [selectedNotification, setSelectedNotification] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 5;
 
@@ -68,8 +67,7 @@ const AdminNotifications = () => {
       n.id === id ? { ...n, read: true } : n
     );
     setNotifications(updated);
-    const selected = updated.find((n) => n.id === id);
-    setSelectedNotification(selected);
+    
   };
 
   return (
@@ -86,7 +84,6 @@ const AdminNotifications = () => {
             key={key}
             onClick={() => {
               setFilter(key);
-              setSelectedNotification(null);
               setCurrentPage(1);
             }}
             className={`px-4 py-2 rounded-full border-2 ${
@@ -135,7 +132,7 @@ const AdminNotifications = () => {
                     className="bg-[#ffa04c] text-white px-3 py-1 rounded-md flex items-center gap-1 text-sm"
                   >
                     <Eye size={14} />
-                    View
+                    Mark Read
                   </button>
                 </td>
               </tr>
@@ -174,27 +171,6 @@ const AdminNotifications = () => {
         </div>
       )}
 
-      {/* Selected Notification */}
-      {selectedNotification && (
-        <div className="mt-10 bg-white border border-[#ffa04c] rounded-lg shadow-md p-6 w-full">
-          <h2 className="text-xl font-bold text-[#00474A] mb-4 flex items-center gap-2">
-            <Eye size={20} />
-            Notification Details
-          </h2>
-          <div className="space-y-3 text-[#211221] text-sm">
-            <div>
-              <span className="font-semibold">Type:</span> {selectedNotification.type.replace(/_/g, " ")}
-            </div>
-            <div>
-              <span className="font-semibold">Message:</span> {selectedNotification.message}
-            </div>
-            <div>
-              <span className="font-semibold">Date:</span>{" "}
-              {new Date(selectedNotification.createdAt).toLocaleString()}
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   );
 };

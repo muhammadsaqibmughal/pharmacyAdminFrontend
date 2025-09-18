@@ -50,7 +50,7 @@ const ChangePassword = () => {
       <h2 className="text-4xl font-extrabold text-[#00474A] mb-8 flex items-center gap-4">
         <FaKey className="text-[#ffa04c]" size={40} />
         Change Password
-      </h2>
+      </h2>eror
 
       {statusMsg.message && (
         <div

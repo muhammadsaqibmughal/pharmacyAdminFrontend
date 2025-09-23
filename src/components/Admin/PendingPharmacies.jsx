@@ -3,25 +3,30 @@ import PharmacyTable from "../PharmacyTable";
 import { getPendingPharmacies } from "../../api/admin";
 
 const PendingPharmacies = () => {
-  const [pending, setPending] = useState(null);
-  const [isLoading, setIsloading] = useState(true); 
+  const [pending, setPending] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const pendingPharmacy = async () => {
+    const fetchPendingPharmacies = async () => {
       try {
         const response = await getPendingPharmacies();
-        console.log(response.data.data)
-        setPending(response.data.data); 
+
+        if (response.status === "success") {
+          console.log(response.data)
+          setPending(response.data);
+        } else {
+          setError("Failed to load pending pharmacies.");
+        }
       } catch (err) {
-        setError(err.message || "An error occurred.");
+        setError(err.message || "An error occurred while fetching pharmacies.");
       } finally {
-        setIsloading(false); 
+        setIsLoading(false);
       }
     };
-    pendingPharmacy(); 
-  }, []); 
 
+    fetchPendingPharmacies();
+  }, []);
 
   if (isLoading) {
     return (
@@ -31,7 +36,6 @@ const PendingPharmacies = () => {
     );
   }
 
-
   if (error) {
     return (
       <div className="p-6 text-error">
@@ -40,21 +44,20 @@ const PendingPharmacies = () => {
     );
   }
 
-
   if (!pending || pending.length === 0) {
     return (
       <div className="p-6 text-secondary">
-        <p>Pending Pharmacies data is not available.</p>
+        <p>No pending pharmacies found.</p>
       </div>
     );
   }
-
 
   return (
     <div>
       <PharmacyTable
         title="Pending Pharmacies"
         pharmacies={pending}
+        length1={pending.length}
         itemsPerPage={10}
       />
     </div>

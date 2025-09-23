@@ -40,7 +40,7 @@ export const changePassword = async ({ currentPassword, newPassword }) => {
 // get pending pharmacies
 export const getPendingPharmacies = async () => {
   const response = await api.get("/admin/pharmacies/pending-pharmacies");
-  return response;
+  return response.data;
 };
 
 // approve pharmacy
@@ -53,5 +53,11 @@ export const approvedPharmacies=async (id) => {
 export const rejectPharmacies=async (id) => {
   const response=await api.put(`/admin/pharmacies/${id}/reject/`);
   return response;
+}
+
+// get approved pharmacies
+export const getApprovedPharmacies=async()=>{
+  const response=await api.get("/admin/pharmacies/approved-pharmacies");
+  return response.data;
 }
 

@@ -5,7 +5,7 @@ import { Eye } from "lucide-react";
 const headerCell = "p-4 text-sm font-semibold";
 const cell = "p-4 text-[#211221]";
 
-const PharmacyTable = ({ title, pharmacies, itemsPerPage = 10 }) => {
+const PharmacyTable = ({ title, pharmacies,length1, itemsPerPage = 10 }) => {
   const [selectedPharmacy, setSelectedPharmacy] = useState(null);
   const detailRef = useRef(null);
   const navigate = useNavigate();
@@ -16,6 +16,7 @@ const PharmacyTable = ({ title, pharmacies, itemsPerPage = 10 }) => {
         setSelectedPharmacy(null);
       }
     }
+    console.log(selectedPharmacy);
     document.addEventListener("mousedown", handleClickOutside);
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
@@ -24,6 +25,7 @@ const PharmacyTable = ({ title, pharmacies, itemsPerPage = 10 }) => {
 
   // Pagination logic
   const [currentPage, setCurrentPage] = useState(1);
+  console.log("pharmacies:  "+length1);
   const totalPages = Math.ceil(pharmacies.length / itemsPerPage);
   const startIdx = (currentPage - 1) * itemsPerPage;
   const currentItems = pharmacies.slice(startIdx, startIdx + itemsPerPage);
@@ -35,9 +37,12 @@ const PharmacyTable = ({ title, pharmacies, itemsPerPage = 10 }) => {
   }, [totalPages, currentPage]);
 
   const handleView = (pharmacy) => {
-    navigate(`/admin/dashboard/pharmacy/${pharmacy.status}/detail/${pharmacy.id}`, {
-      state: { pharmacy },
-    });
+    navigate(
+      `/admin/dashboard/pharmacy/${pharmacy.status}/detail/${pharmacy.id}`,
+      {
+        state: { pharmacy },
+      }
+    );
   };
 
   return (
@@ -57,42 +62,45 @@ const PharmacyTable = ({ title, pharmacies, itemsPerPage = 10 }) => {
             </tr>
           </thead>
           <tbody>
-            {currentItems.map((pharmacy) => (
-              <tr
-                key={pharmacy.id}
-                className="bg-white border-t border-[#eee] last:border-b"
-              >
-                <td className={cell}>{pharmacy.pharmacyName}</td>
-                <td className={cell}>{pharmacy.licenseNumber}</td>
-                <td className={cell}>
-                  {pharmacy.managerId ? "Owner Information" : "No Owner"}
-                </td>
-                <td className={cell}>{pharmacy.phoneNumber}</td>
-                <td className={cell}>
-                  <button
-                    onClick={() => handleView(pharmacy)}
-                    className="bg-[#ffa04c] text-white text-sm px-3 py-1 rounded-md flex items-center gap-1"
-                  >
-                    <Eye size={14} />
-                    View
-                  </button>
-                </td>
-              </tr>
-            ))}
-
-            {currentItems.length === 0 && (
+            {/* If no pharmacies are available, show a message */}
+            {length1 === 0 ?
+             (
               <tr>
                 <td colSpan="5" className="text-center text-[#757575] py-4">
-                  No pharmacies found.
+                  No available pharmacies.
                 </td>
               </tr>
+            ) : (
+              // Render the pharmacies table rows
+              currentItems.map((pharmacy) => (
+                <tr
+                  key={pharmacy.id}
+                  className="bg-white border-t border-[#eee] last:border-b"
+                >
+                  <td className={cell}>{pharmacy.pharmacyName}</td>
+                  <td className={cell}>{pharmacy.licenseNumber}</td>
+                  <td className={cell}>
+                    {pharmacy.managerId ? "Owner Information" : "No Owner"}
+                  </td>
+                  <td className={cell}>{pharmacy.phoneNumber}</td>
+                  <td className={cell}>
+                    <button
+                      onClick={() => handleView(pharmacy)}
+                      className="bg-[#ffa04c] text-white text-sm px-3 py-1 rounded-md flex items-center gap-1"
+                    >
+                      <Eye size={14} />
+                      View
+                    </button>
+                  </td>
+                </tr>
+              ))
             )}
           </tbody>
         </table>
       </div>
 
       {/* Pagination */}
-      {totalPages > 1 && (
+      {totalPages > 1 && pharmacies.length > 0 && (
         <div className="mt-6 flex flex-wrap justify-center items-center gap-4">
           <button
             onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
@@ -105,7 +113,9 @@ const PharmacyTable = ({ title, pharmacies, itemsPerPage = 10 }) => {
             Page {currentPage} of {totalPages}
           </span>
           <button
-            onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
+            onClick={() =>
+              setCurrentPage((prev) => Math.min(prev + 1, totalPages))
+            }
             className="px-4 py-1 text-sm rounded border border-[#ffa04c] text-[#ffa04c] hover:bg-[#ffa04c] hover:text-white transition disabled:opacity-50"
             disabled={currentPage === totalPages}
           >

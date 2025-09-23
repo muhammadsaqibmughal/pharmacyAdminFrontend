@@ -91,7 +91,7 @@ const PharmacyDetailPage = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-[#211221] text-sm sm:text-base">
           <div><span className="font-semibold">Pharmacy Name:</span> {pharmacy.pharmacyName}</div>
           <div><span className="font-semibold">License Number:</span> {pharmacy.licenseNumber}</div>
-          <div><span className="font-semibold">Owner (Manager):</span> {pharmacy.managerName || "N/A"}</div>
+          <div><span className="font-semibold">Owner (Manager):</span> {pharmacy.manager.name || "N/A"}</div>
           <div><span className="font-semibold">Phone:</span> {pharmacy.phoneNumber}</div>
 
           {/* Address */}
@@ -117,7 +117,7 @@ const PharmacyDetailPage = () => {
 
           {/* Manager Details */}
           <div className="sm:col-span-2">
-            <span className="font-semibold">Manager:</span> {pharmacy.managerName || "No Manager"}
+            <span className="font-semibold">Manager:</span> {pharmacy.manager.name || "No Manager"}
           </div>
 
           {/* Documents */}

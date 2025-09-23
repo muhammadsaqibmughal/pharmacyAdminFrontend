@@ -1,69 +1,55 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import PharmacyTable from "../PharmacyTable";
-
-// Example data with unique IDs
-const allPharmacies = [
-  {
-    id: 1,
-    name: "Ali Pharmacy",
-    licenseNumber: "LIC123",
-    owner: "Ali",
-    phone: "03001234567",
-    status: "approved",
-  },
-  {
-    id: 2,
-    name: "Naveed Pharmacy",
-    licenseNumber: "LIC456",
-    owner: "Naveed",
-    phone: "03007654321",
-    status: "approved",
-  },
-  {
-    id: 3,
-    name: "Iqra Pharmacy",
-    licenseNumber: "LIC789",
-    owner: "Iqra",
-    phone: "03009876543",
-    status: "approved",
-  },
-  // Add more pharmacies with unique IDs
-  {
-    id: 4,
-    name: "Zain Pharmacy",
-    licenseNumber: "LIC012",
-    owner: "Zain",
-    phone: "03001112233",
-    status: "approved",
-  },
-  {
-    id: 5,
-    name: "Muneeb Pharmacy",
-    licenseNumber: "LIC345",
-    owner: "Muneeb",
-    phone: "03002223344",
-    status: "approved",
-  },
-  {
-    id: 6,
-    name: "Sara Pharmacy",
-    licenseNumber: "LIC678",
-    owner: "Sara",
-    phone: "03003334455",
-    status: "approved",
-  },
-  // You can continue adding unique pharmacies as needed
-];
+import { getApprovedPharmacies } from "../../api/admin"; 
 
 const ApprovedPharmacies = () => {
-  const approved = allPharmacies.filter((ph) => ph.status === "approved");
+  const [approved, setApproved] = useState(null);  
+  const [isLoading, setIsLoading] = useState(true);  
+  const [error, setError] = useState(null);  
+
+  useEffect(() => {
+    const getApproved = async () => {
+      try {
+        const response = await getApprovedPharmacies();  
+        if (response.status === "success") {
+          console.log(response.data)
+          setApproved(response.data);  
+        } else {
+          setError("Failed to load approved pharmacies.");  
+        }
+      } catch (err) {
+        setError("An error occurred while fetching the pharmacies.");
+        console.log(err);
+      } finally {
+        setIsLoading(false);  
+      }
+    };
+
+    getApproved();  
+  }, []); 
+
+  
+  if (isLoading) {
+    return <div className="text-center py-4">Loading approved pharmacies...</div>;
+  }
+
+  if (error) {
+    return <div className="text-center py-4 text-red-500">{error}</div>;
+  }
+
+  if (!approved || approved.length === 0) {
+    return <div className="text-center py-4">No approved pharmacies found.</div>;
+  }
 
   return (
-    <PharmacyTable
-      title="Approved Pharmacies"
-      pharmacies={approved}
-      itemsPerPage={10}
-    />
+    <div>
+      <PharmacyTable
+        title="Approved Pharmacies"
+        pharmacies={approved} 
+        length1={approved.length} 
+        itemsPerPage={10}  
+      />
+    </div>
   );
 };
 

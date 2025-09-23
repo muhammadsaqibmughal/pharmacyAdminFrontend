@@ -62,10 +62,12 @@ const PharmacyTable = ({ title, pharmacies, itemsPerPage = 10 }) => {
                 key={pharmacy.id}
                 className="bg-white border-t border-[#eee] last:border-b"
               >
-                <td className={cell}>{pharmacy.name}</td>
+                <td className={cell}>{pharmacy.pharmacyName}</td>
                 <td className={cell}>{pharmacy.licenseNumber}</td>
-                <td className={cell}>{pharmacy.owner}</td>
-                <td className={cell}>{pharmacy.phone}</td>
+                <td className={cell}>
+                  {pharmacy.managerId ? "Owner Information" : "No Owner"}
+                </td>
+                <td className={cell}>{pharmacy.phoneNumber}</td>
                 <td className={cell}>
                   <button
                     onClick={() => handleView(pharmacy)}

@@ -13,7 +13,7 @@ const PendingPharmacies = () => {
         const response = await getPendingPharmacies();
 
         if (response.status === "success") {
-          console.log(response.data)
+          console.log(response.data);
           setPending(response.data);
         } else {
           setError("Failed to load pending pharmacies.");
@@ -57,7 +57,6 @@ const PendingPharmacies = () => {
       <PharmacyTable
         title="Pending Pharmacies"
         pharmacies={pending}
-        length1={pending.length}
         itemsPerPage={10}
       />
     </div>

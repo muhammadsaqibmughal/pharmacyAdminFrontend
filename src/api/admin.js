@@ -30,10 +30,10 @@ export const fetchAdminProfile = async () => {
 
 // change admin password
 export const changePassword = async ({ currentPassword, newPassword }) => {
-  const response = await api.post(
-    "/admin/change-password",
-    { currentPassword, newPassword },
-  );
+  const response = await api.post("/admin/change-password", {
+    currentPassword,
+    newPassword,
+  });
   return response.data;
 };
 
@@ -44,20 +44,31 @@ export const getPendingPharmacies = async () => {
 };
 
 // approve pharmacy
-export const approvedPharmacies=async (id) => {
-  const response=await api.put(`/admin/pharmacies/${id}/approved/`);
+export const approvedPharmacies = async (id) => {
+  const response = await api.put(`/admin/pharmacies/${id}/approved/`);
   return response;
-}
+};
 
 // reject pharmacy
-export const rejectPharmacies=async (id) => {
-  const response=await api.put(`/admin/pharmacies/${id}/reject/`);
+export const rejectPharmacies = async (id) => {
+  const response = await api.put(`/admin/pharmacies/${id}/reject/`);
   return response;
-}
+};
 
 // get approved pharmacies
-export const getApprovedPharmacies=async()=>{
-  const response=await api.get("/admin/pharmacies/approved-pharmacies");
+export const getApprovedPharmacies = async () => {
+  const response = await api.get("/admin/pharmacies/approved-pharmacies");
   return response.data;
-}
+};
 
+// get notifications
+export const getNotifications = async () => {
+  const response = await api.get("/admin/notification");
+  return response.data;
+};
+
+// read Notification
+export const readNotification = async (id) => {
+  const response = await api.put(`/admin/notification/${id}`);
+  return response.data;
+};

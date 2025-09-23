@@ -3,7 +3,7 @@ import PharmacyTable from "../PharmacyTable";
 import { getApprovedPharmacies } from "../../api/admin"; 
 
 const ApprovedPharmacies = () => {
-  const [approved, setApproved] = useState(null);  
+  const [approved, setApproved] = useState([]);
   const [isLoading, setIsLoading] = useState(true);  
   const [error, setError] = useState(null);  
 
@@ -12,7 +12,7 @@ const ApprovedPharmacies = () => {
       try {
         const response = await getApprovedPharmacies();  
         if (response.status === "success") {
-          console.log(response.data)
+          console.log(response.data);
           setApproved(response.data);  
         } else {
           setError("Failed to load approved pharmacies.");  
@@ -28,7 +28,6 @@ const ApprovedPharmacies = () => {
     getApproved();  
   }, []); 
 
-  
   if (isLoading) {
     return <div className="text-center py-4">Loading approved pharmacies...</div>;
   }
@@ -46,7 +45,6 @@ const ApprovedPharmacies = () => {
       <PharmacyTable
         title="Approved Pharmacies"
         pharmacies={approved} 
-        length1={approved.length} 
         itemsPerPage={10}  
       />
     </div>

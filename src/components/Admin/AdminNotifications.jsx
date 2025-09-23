@@ -1,56 +1,36 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Bell, Eye } from "lucide-react";
-
-const mockNotifications = [
-  {
-    id: "1",
-    message: 'New pharmacy "HealthPlus Pharmacy" has registered.',
-    type: "pharmacy_registration",
-    read: false,
-    createdAt: "2025-06-01T15:47:57.470Z",
-  },
-  {
-    id: "2",
-    message: 'Pharmacy "Zahid Medicos" approved successfully.',
-    type: "pharmacy_approved",
-    read: true,
-    createdAt: "2025-05-29T10:00:00Z",
-  },
-  {
-    id: "3",
-    message: 'License verification failed for "Pharma World".',
-    type: "license_failed",
-    read: true,
-    createdAt: "2025-05-28T08:15:00Z",
-  },
-  {
-    id: "4",
-    message: "3 pharmacies are pending review.",
-    type: "pending_pharmacy_alert",
-    read: false,
-    createdAt: "2025-06-02T09:00:00Z",
-  },
-  {
-    id: "5",
-    message: "Pharmacy documents updated.",
-    type: "pharmacy_update",
-    read: true,
-    createdAt: "2025-06-02T12:30:00Z",
-  },
-  {
-    id: "6",
-    message: "New license submitted for review.",
-    type: "license_submission",
-    read: false,
-    createdAt: "2025-06-03T14:45:00Z",
-  },
-];
+import { getNotifications, readNotification } from "../../api/admin"; 
 
 const AdminNotifications = () => {
-  const [notifications, setNotifications] = useState(mockNotifications);
+  const [notifications, setNotifications] = useState([]);  
   const [filter, setFilter] = useState("all");
   const [currentPage, setCurrentPage] = useState(1);
+  const [isLoading, setIsLoading] = useState(true); 
+  const [error, setError] = useState(null);  
   const itemsPerPage = 5;
+
+  // Fetch notifications
+  const fetchNotifications = async () => {
+    try {
+      setIsLoading(true);
+      const response = await getNotifications(); 
+      if (response.status === "success") {
+        setNotifications(response.data);
+      } else {
+        setError("Failed to fetch notifications.");
+      }
+    } catch (err) {
+      setError("An error occurred while fetching notifications.");
+      console.log(err);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchNotifications();
+  }, []);
 
   const filteredNotifications = notifications.filter((n) => {
     if (filter === "new") return !n.read;
@@ -62,13 +42,31 @@ const AdminNotifications = () => {
   const startIdx = (currentPage - 1) * itemsPerPage;
   const currentItems = filteredNotifications.slice(startIdx, startIdx + itemsPerPage);
 
-  const markAsRead = (id) => {
-    const updated = notifications.map((n) =>
-      n.id === id ? { ...n, read: true } : n
-    );
-    setNotifications(updated);
-    
+  // Mark as read (call API + refetch notifications)
+  const markAsRead = async (id) => {
+    try {
+      await readNotification(id); // call backend
+      await fetchNotifications(); // refresh list after backend update
+    } catch (err) {
+      console.log("Error marking as read:", err);
+    }
   };
+
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center h-screen text-primary">
+        Loading notifications...
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="p-6 text-error">
+        <p>Error: {error}</p>
+      </div>
+    );
+  }
 
   return (
     <div className="p-6 sm:p-8 bg-[#F5F5F5] min-h-screen">
@@ -112,7 +110,9 @@ const AdminNotifications = () => {
           <tbody>
             {currentItems.map((notif) => (
               <tr key={notif.id} className="bg-white border-t border-[#eee]">
-                <td className="p-4 text-[#211221]">{notif.type.replace(/_/g, " ")}</td>
+                <td className="p-4 text-[#211221]">
+                  {notif.type.replace(/_/g, " ")}
+                </td>
                 <td className="p-4 text-[#757575] text-sm">{notif.message}</td>
                 <td className="p-4 text-[#757575] text-sm">
                   {new Date(notif.createdAt).toLocaleString()}
@@ -127,13 +127,15 @@ const AdminNotifications = () => {
                   </span>
                 </td>
                 <td className="p-4">
-                  <button
-                    onClick={() => markAsRead(notif.id)}
-                    className="bg-[#ffa04c] text-white px-3 py-1 rounded-md flex items-center gap-1 text-sm"
-                  >
-                    <Eye size={14} />
-                    Mark Read
-                  </button>
+                  {!notif.read && (
+                    <button
+                      onClick={() => markAsRead(notif.id)}
+                      className="bg-[#ffa04c] text-white px-3 py-1 rounded-md flex items-center gap-1 text-sm"
+                    >
+                      <Eye size={14} />
+                      Mark Read
+                    </button>
+                  )}
                 </td>
               </tr>
             ))}
@@ -170,7 +172,6 @@ const AdminNotifications = () => {
           </button>
         </div>
       )}
-
     </div>
   );
 };

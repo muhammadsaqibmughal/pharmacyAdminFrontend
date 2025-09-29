@@ -17,7 +17,7 @@ const TopNavbar = () => {
   };
 
   return (
-    <div className="bg-[#ffa04c] w-[80rem] h-16 flex items-center justify-between px-6  fixed top-0 z-50 sm:ml-64">
+    <div className="bg-[#298aaa] w-[80rem] h-16 flex items-center justify-between px-6  fixed top-0 z-50 sm:ml-64">
 
       {/* Right side (user profile and logout dropdown) */}
       <div className="relative">

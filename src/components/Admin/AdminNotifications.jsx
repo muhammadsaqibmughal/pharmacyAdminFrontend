@@ -70,7 +70,7 @@ const AdminNotifications = () => {
 
   return (
     <div className="p-6 sm:p-8 bg-[#F5F5F5] min-h-screen">
-      <h1 className="text-3xl font-bold text-[#00474A] mb-6 flex items-center gap-2">
+      <h1 className="text-3xl font-bold text-primary-50 mb-6 flex items-center gap-2">
         <Bell size={24} />
         Notifications
       </h1>
@@ -86,8 +86,8 @@ const AdminNotifications = () => {
             }}
             className={`px-4 py-2 rounded-full border-2 ${
               filter === key
-                ? "bg-[#ffa04c] text-white border-[#ffa04c]"
-                : "bg-white text-[#211221] border-[#ffa04c]"
+                ? "bg-[#298aaa] text-white border-[#298aaa]"
+                : "bg-white text-[#211221] border-[#298aaa]"
             } text-sm font-semibold`}
           >
             {key}
@@ -98,7 +98,7 @@ const AdminNotifications = () => {
       {/* Table Wrapper */}
       <div className="overflow-x-auto rounded-xl border border-[#ddd]">
         <table className="w-full text-sm text-left">
-          <thead className="bg-[#211221] text-white">
+          <thead className="bg-[#075c79] text-white">
             <tr>
               <th className="p-4 text-sm font-semibold">Type</th>
               <th className="p-4 text-sm font-semibold">Message</th>
@@ -130,7 +130,7 @@ const AdminNotifications = () => {
                   {!notif.read && (
                     <button
                       onClick={() => markAsRead(notif.id)}
-                      className="bg-[#ffa04c] text-white px-3 py-1 rounded-md flex items-center gap-1 text-sm"
+                      className="bg-[#298aaa] text-white px-3 py-1 rounded-md flex items-center gap-1 text-sm"
                     >
                       <Eye size={14} />
                       Mark Read
@@ -155,7 +155,7 @@ const AdminNotifications = () => {
         <div className="mt-6 flex justify-center gap-4">
           <button
             onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
-            className="px-4 py-1 text-sm rounded border border-[#ffa04c] text-[#ffa04c] hover:bg-[#ffa04c] hover:text-white transition disabled:opacity-50"
+            className="px-4 py-1 text-sm rounded border border-[#298aaa] text-[#298aaa] hover:bg-[#298aaa] hover:text-white transition disabled:opacity-50"
             disabled={currentPage === 1}
           >
             Prev
@@ -165,7 +165,7 @@ const AdminNotifications = () => {
           </span>
           <button
             onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
-            className="px-4 py-1 text-sm rounded border border-[#ffa04c] text-[#ffa04c] hover:bg-[#ffa04c] hover:text-white transition disabled:opacity-50"
+            className="px-4 py-1 text-sm rounded border border-[#298aaa] text-[#298aaa] hover:bg-[#298aaa] hover:text-white transition disabled:opacity-50"
             disabled={currentPage === totalPages}
           >
             Next

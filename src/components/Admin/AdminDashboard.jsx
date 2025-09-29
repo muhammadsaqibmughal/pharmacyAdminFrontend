@@ -3,9 +3,9 @@ import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from "recha
 import { motion } from "framer-motion";
 
 const stats = [
-  { title: "Approved Pharmacies", count: 128, color: "#4CAF50" },      // green
-  { title: "Pending Pharmacies", count: 37, color: "#ffa04c" },       // orange
-  { title: "Rejected Pharmacies", count: 14, color: "#D32F2F" },      // red
+  { title: "Approved Pharmacies", count: 128, color: "#4CAF50" },      
+  { title: "Pending Pharmacies", count: 37, color: "#298aaa" },      
+  { title: "Rejected Pharmacies", count: 14, color: "#D32F2F" },      
 ];
 
 const data = [
@@ -20,7 +20,7 @@ const data = [
 const AdminDashboard = () => {
   return (
     <div style={{ padding: "1.5rem 3rem", minHeight: "100vh", backgroundColor: "#F5F5F5" }}>
-      <h1 style={{ fontSize: "2.5rem", fontWeight: "800", marginBottom: "2rem", color: "#00474A", userSelect: "none" }}>
+      <h1 className="text-primary-50" style={{ fontSize: "2.5rem", fontWeight: "800", marginBottom: "2rem", userSelect: "none" }}>
         Pharmacy Admin Dashboard
       </h1>
 
@@ -70,12 +70,12 @@ const AdminDashboard = () => {
               axisLine={{ stroke: "#D1D5DB" }}
             />
             <Tooltip
-              contentStyle={{ backgroundColor: "#ffa04c", borderRadius: 8 }}
+              contentStyle={{ backgroundColor: "#298aaa", borderRadius: 8 }}
               cursor={{ fill: "rgba(255, 142, 41, 0.15)" }}
             />
             <Bar
               dataKey="users"
-              fill="#ffa04c"
+              fill="#298aaa"
               radius={[5, 5, 0, 0]}
               barSize={32}
               animationDuration={800}

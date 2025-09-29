@@ -44,13 +44,7 @@ const PendingPharmacies = () => {
     );
   }
 
-  if (!pending || pending.length === 0) {
-    return (
-      <div className="p-6 text-secondary">
-        <p>No pending pharmacies found.</p>
-      </div>
-    );
-  }
+ 
 
   return (
     <div>

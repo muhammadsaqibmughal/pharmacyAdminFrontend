@@ -47,8 +47,8 @@ const ChangePassword = () => {
 
   return (
     <div className="max-w-3xl mx-auto p-8 bg-white rounded-lg shadow-lg mt-10">
-      <h2 className="text-4xl font-extrabold text-[#00474A] mb-8 flex items-center gap-4">
-        <FaKey className="text-[#ffa04c]" size={40} />
+      <h2 className="text-4xl font-extrabold text-primary-50 mb-8 flex items-center gap-4">
+        <FaKey className="text-[#298aaa]" size={40} />
         Change Password
       </h2>eror
 
@@ -77,7 +77,7 @@ const ChangePassword = () => {
             className={`w-full px-4 py-2 border text-l rounded-md bg-white text-[#211221] focus:outline-none focus:ring ${
               formik.touched.currentPassword && formik.errors.currentPassword
                 ? "border-[#D32F2F] focus:ring-[#D32F2F]"
-                : "border-gray-300 focus:ring-[#ffa04c]"
+                : "border-gray-300 focus:ring-[#298aaa]"
             }`}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
@@ -102,7 +102,7 @@ const ChangePassword = () => {
             className={`w-full px-4 py-2  border text-l rounded-md bg-white text-[#211221] focus:outline-none focus:ring ${
               formik.touched.newPassword && formik.errors.newPassword
                 ? "border-[#D32F2F] focus:ring-[#D32F2F]"
-                : "border-gray-300 focus:ring-[#ffa04c]"
+                : "border-gray-300 focus:ring-[#298aaa]"
             }`}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
@@ -127,7 +127,7 @@ const ChangePassword = () => {
             className={`w-full px-4 py-2 border text-l rounded-md bg-white text-[#211221] focus:outline-none focus:ring ${
               formik.touched.confirmPassword && formik.errors.confirmPassword
                 ? "border-[#D32F2F] focus:ring-[#D32F2F]"
-                : "border-gray-300 focus:ring-[#ffa04c]"
+                : "border-gray-300 focus:ring-[#298aaa]"
             }`}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
@@ -143,7 +143,7 @@ const ChangePassword = () => {
         <button
           type="submit"
           disabled={formik.isSubmitting}
-          className="w-full bg-[#ffa04c] hover:bg-[#D76A30] text-white font-semibold py-2 rounded-md shadow-md transition duration-200"
+          className="w-full bg-[#298aaa] hover:bg-[#D76A30] text-white font-semibold py-2 rounded-md shadow-md transition duration-200"
         >
           {formik.isSubmitting ? "Updating..." : "Update Password"}
         </button>

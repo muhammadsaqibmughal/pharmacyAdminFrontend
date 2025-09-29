@@ -31,12 +31,12 @@ const PharmacyTable = ({ title, pharmacies = [], itemsPerPage = 10 }) => {
 
   return (
     <div className="p-6 sm:p-8 bg-[#F5F5F5] min-h-screen">
-      <h1 className="text-3xl font-bold text-[#00474A] mb-6">{title}</h1>
+      <h1 className="text-3xl font-bold text-primary-50 mb-6">{title}</h1>
 
       {/* Table Wrapper */}
       <div className="overflow-x-auto rounded-xl border border-[#ddd]">
         <table className="w-full text-sm text-left">
-          <thead className="bg-[#211221] text-white">
+          <thead className="bg-[#075c79] text-white">
             <tr>
               <th className={headerCell}>Pharmacy Name</th>
               <th className={headerCell}>License #</th>
@@ -46,56 +46,62 @@ const PharmacyTable = ({ title, pharmacies = [], itemsPerPage = 10 }) => {
             </tr>
           </thead>
           <tbody>
-            {currentItems.map((pharmacy) => (
-              <tr
-                key={pharmacy.id}
-                className="bg-white border-t border-[#eee] last:border-b"
-              >
-                <td className={cell}>{pharmacy.pharmacyName}</td>
-                <td className={cell}>{pharmacy.licenseNumber}</td>
-                <td className={cell}>
-                  {pharmacy.managerId ? "Owner Information" : "No Owner"}
-                </td>
-                <td className={cell}>{pharmacy.phoneNumber}</td>
-                <td className={cell}>
-                  <button
-                    onClick={() => handleView(pharmacy)}
-                    className="bg-[#ffa04c] text-white text-sm px-3 py-1 rounded-md flex items-center gap-1"
-                  >
-                    <Eye size={14} />
-                    View
-                  </button>
+            {currentItems.length > 0 ? (
+              currentItems.map((pharmacy) => (
+                <tr
+                  key={pharmacy.id}
+                  className="bg-white border-t border-[#eee] last:border-b"
+                >
+                  <td className={cell}>{pharmacy.pharmacyName}</td>
+                  <td className={cell}>{pharmacy.licenseNumber}</td>
+                  <td className={cell}>
+                    {pharmacy.managerId ? "Owner Information" : "No Owner"}
+                  </td>
+                  <td className={cell}>{pharmacy.phoneNumber}</td>
+                  <td className={cell}>
+                    <button
+                      onClick={() => handleView(pharmacy)}
+                      className="bg-[#298aaa] text-white text-sm px-3 py-1 rounded-md flex items-center gap-1"
+                    >
+                      <Eye size={14} />
+                      View
+                    </button>
+                  </td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td colSpan="5" className="text-center py-6 text-gray-500">
+                  No pharmacies available.
                 </td>
               </tr>
-            ))}
+            )}
           </tbody>
         </table>
       </div>
 
-      {/* Pagination */}
-      {totalPages > 1 && pharmacies.length > 0 && (
-        <div className="mt-6 flex flex-wrap justify-center items-center gap-4">
-          <button
-            onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
-            className="px-4 py-1 text-sm rounded border border-[#ffa04c] text-[#ffa04c] hover:bg-[#ffa04c] hover:text-white transition disabled:opacity-50"
-            disabled={currentPage === 1}
-          >
-            Prev
-          </button>
-          <span className="text-[#211221] font-medium text-sm">
-            Page {currentPage} of {totalPages}
-          </span>
-          <button
-            onClick={() =>
-              setCurrentPage((prev) => Math.min(prev + 1, totalPages))
-            }
-            className="px-4 py-1 text-sm rounded border border-[#ffa04c] text-[#ffa04c] hover:bg-[#ffa04c] hover:text-white transition disabled:opacity-50"
-            disabled={currentPage === totalPages}
-          >
-            Next
-          </button>
-        </div>
-      )}
+      {/* Pagination - always visible */}
+      <div className="mt-6 flex flex-wrap justify-center items-center gap-4">
+        <button
+          onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+          className="px-4 py-1 text-sm rounded border border-[#298aaa] text-[#298aaa] hover:bg-[#298aaa] hover:text-white transition disabled:opacity-50"
+          disabled={currentPage === 1 || totalPages === 0}
+        >
+          Prev
+        </button>
+        <span className="text-[#211221] font-medium text-sm">
+          Page {totalPages === 0 ? 0 : currentPage} of {totalPages}
+        </span>
+        <button
+          onClick={() =>
+            setCurrentPage((prev) => Math.min(prev + 1, totalPages))
+          }
+          className="px-4 py-1 text-sm rounded border border-[#298aaa] text-[#298aaa] hover:bg-[#298aaa] hover:text-white transition disabled:opacity-50"
+          disabled={currentPage === totalPages || totalPages === 0}
+        >
+          Next
+        </button>
+      </div>
     </div>
   );
 };

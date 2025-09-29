@@ -33,7 +33,7 @@ const AdminLogin = () => {
   return (
     <div className="min-h-screen bg-[#F5F5F5] flex items-center justify-center">
       <div className="bg-white shadow-2xl rounded-2xl p-10 w-full max-w-md">
-        <h2 className="text-2xl font-bold text-center text-[#ffa04c] mb-6">
+        <h2 className="text-2xl font-bold text-center text-[#298aaa] mb-6">
           Pharmacy Admin Login
         </h2>
         {loginError && (
@@ -54,7 +54,7 @@ const AdminLogin = () => {
               className={`w-full px-4 py-2 border text-l rounded-md shadow-sm text-[#211221] focus:outline-none focus:ring-2 ${
                 formik.touched.email && formik.errors.email
                   ? "border-[#D32F2F] focus:ring-red-300"
-                  : "border-[#F5F5F5] focus:ring-[#ffa04c]"
+                  : "border-[#F5F5F5] focus:ring-[#298aaa]"
               }`}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
@@ -76,7 +76,7 @@ const AdminLogin = () => {
               className={`w-full px-4 py-2 text-l border rounded-md text-[#211221] shadow-sm focus:outline-none focus:ring-2  ${
                 formik.touched.password && formik.errors.password
                   ? "border-[#D32F2F] focus:ring-red-300"
-                  : "border-[#F5F5F5] focus:ring-[#ffa04c]"
+                  : "border-[#F5F5F5] focus:ring-[#298aaa]"
               }`}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
@@ -93,7 +93,7 @@ const AdminLogin = () => {
           <button
             type="submit"
             disabled={formik.isSubmitting}
-            className="w-full bg-[#ffa04c] hover:bg-[#fc7703] text-white font-semibold py-2 px-4 rounded-md transition duration-300"
+            className="w-full bg-[#298aaa] hover:bg-[#075c79] text-white font-semibold py-2 px-4 rounded-md transition duration-300"
           >
             {formik.isSubmitting ? "Logging in..." : "Login"}
           </button>
@@ -103,7 +103,7 @@ const AdminLogin = () => {
         <div className="mt-4 text-center">
           <Link
             to="/admin/forgot-password"
-            className="text-sm text-[#ffa04c] hover:underline"
+            className="text-sm text-[#298aaa] hover:underline"
           >
             Forgot Password?
           </Link>
@@ -111,7 +111,7 @@ const AdminLogin = () => {
 
         <div className="mt-8 text-center text-[#211221] text-sm font-medium tracking-wide">
           &copy; 2025{" "}
-          <span className="font-semibold text-[#ffa04c]">PharmaConnect+</span>{" "}
+          <span className="font-semibold text-[#298aaa]">PharmaConnect+</span>{" "}
           Pharmacy Management System
         </div>
       </div>

@@ -61,14 +61,14 @@ const AdminProfile = () => {
   return (
     <div className="max-w-xl mx-auto mt-10 bg-white p-8 rounded-xl shadow-md border border-gray-200 font-">
       <div className="flex flex-col items-center text-center">
-        <FaUserCircle className="text-[50px] text-[#00474A] mb-2" />
-        <h2 className="text-3xl font-bold text-[#00474A] mb-6">Admin Profile</h2>
+        <FaUserCircle className="text-[50px] text-primary-50 mb-2" />
+        <h2 className="text-3xl font-bold text-primary-50 mb-6">Admin Profile</h2>
 
         {/* Avatar */}
         <img
           src={staticData.avatar}
           alt="Admin Avatar"
-          className="w-32 h-32 rounded-full border-4 border-[#ffa04c] shadow-md mb-6"
+          className="w-32 h-32 rounded-full border-4 border-[#298aaa] shadow-md mb-6"
         />
 
         {/* Name + Role */}
@@ -79,11 +79,11 @@ const AdminProfile = () => {
 
         {/* Info List */}
         <div className="space-y-4 w-full">
-          <InfoItem icon={<FaEnvelope className="text-[#ffa04c]" />} text={adminData.email} />
-          <InfoItem icon={<FaPhone className="text-[#ffa04c]" />} text={staticData.phone} />
-          <InfoItem icon={<FaMapMarkerAlt className="text-[#ffa04c]" />} text={staticData.address} />
+          <InfoItem icon={<FaEnvelope className="text-[#298aaa]" />} text={adminData.email} />
+          <InfoItem icon={<FaPhone className="text-[#298aaa]" />} text={staticData.phone} />
+          <InfoItem icon={<FaMapMarkerAlt className="text-[#298aaa]" />} text={staticData.address} />
           <InfoItem
-            icon={<FaInfoCircle className="text-[#ffa04c]" />}
+            icon={<FaInfoCircle className="text-[#298aaa]" />}
             text={staticData.bio}
             isParagraph
           />

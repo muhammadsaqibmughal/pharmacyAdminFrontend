@@ -63,7 +63,7 @@ const Sidebar = () => {
       <button
         type="button"
         onClick={() => setSidebarOpen(!isSidebarOpen)}
-        className="fixed top-4 left-4 z-50 inline-flex items-center p-2 text-sm text-white rounded-lg sm:hidden hover:bg-[#ffa04c] focus:outline-none focus:ring-2 focus:ring-[#ffa04c]"
+        className="fixed top-4 left-4 z-50 inline-flex items-center p-2 text-sm text-white rounded-lg sm:hidden hover:bg-[#298aaa] focus:outline-none focus:ring-2 focus:ring-[#298aaa]"
         aria-label="Toggle sidebar"
       >
         <MdFormatAlignLeft className="w-6 h-6 transition-transform" />
@@ -71,7 +71,7 @@ const Sidebar = () => {
 
       {/* Sidebar */}
       <aside
-        className={`fixed top-0 left-0 z-40 w-64 h-screen bg-[#ffa04c] shadow-md transition-transform transform ${
+        className={`fixed top-0 left-0 z-40 w-64 h-screen bg-[#298aaa] shadow-md transition-transform transform ${
           isSidebarOpen ? "translate-x-0" : "-translate-x-full"
         } sm:translate-x-0 flex flex-col`}
         aria-label="Sidebar"
@@ -93,8 +93,8 @@ const Sidebar = () => {
                 to="/admin/dashboard"
                 className={`flex items-center p-2 rounded-lg ${
                   activeTab === "dashboard"
-                    ? "bg-[#d36301] text-white"
-                    : "text-white hover:bg-[#d36301]"
+                    ? "bg-[#075c79] text-white"
+                    : "text-white hover:bg-[#075c79]"
                 }`}
                 onClick={() => handleMainTabClick("dashboard")}
               >
@@ -109,7 +109,7 @@ const Sidebar = () => {
                 type="button"
                 onClick={handlePharmacyClick}
                 className={`flex items-center justify-between w-full p-2 rounded-lg ${
-                  activeTab === "pharmacy" ? "bg-[#d36301] text-white" : "text-white"
+                  activeTab === "pharmacy" ? "bg-[#075c79] text-white" : "text-white"
                 }`}
               >
                 <div className="flex items-center">
@@ -131,8 +131,8 @@ const Sidebar = () => {
                     to="/admin/dashboard/pharmacy/approved"
                     className={`flex items-center p-2 rounded-lg ${
                       activeTab === "approved"
-                        ? "bg-[#d36301] text-white"
-                        : "text-white hover:bg-[#d36301]"
+                        ? "bg-[#075c79] text-white"
+                        : "text-white hover:bg-[#075c79]"
                     }`}
                     onClick={() => handleInnerTabClick("approved")}
                   >
@@ -145,8 +145,8 @@ const Sidebar = () => {
                     to="/admin/dashboard/pharmacy/pending"
                     className={`flex items-center p-2 rounded-lg ${
                       activeTab === "pending"
-                        ? "bg-[#d36301] text-white"
-                        : "text-white hover:bg-[#d36301]"
+                        ? "bg-[#075c79] text-white"
+                        : "text-white hover:bg-[#075c79]"
                     }`}
                     onClick={() => handleInnerTabClick("pending")}
                   >
@@ -163,7 +163,7 @@ const Sidebar = () => {
                 type="button"
                 onClick={handleAccountClick}
                 className={`flex items-center justify-between w-full p-2 rounded-lg ${
-                  activeTab === "account" ? "bg-[#d36301] text-white" : "text-white"
+                  activeTab === "account" ? "bg-[#075c79] text-white" : "text-white"
                 }`}
               >
                 <div className="flex items-center">
@@ -185,8 +185,8 @@ const Sidebar = () => {
                     to="/admin/dashboard/account/profile"
                     className={`flex items-center p-2 rounded-lg ${
                       activeTab === "profile"
-                        ? "bg-[#d36301] text-white"
-                        : "text-white hover:bg-[#d36301]"
+                        ? "bg-[#075c79] text-white"
+                        : "text-white hover:bg-[#075c79]"
                     }`}
                     onClick={() => handleInnerTabClick("profile")}
                   >
@@ -199,8 +199,8 @@ const Sidebar = () => {
                     to="/admin/dashboard/account/change-password"
                     className={`flex items-center p-2 rounded-lg ${
                       activeTab === "change-password"
-                        ? "bg-[#d36301] text-white"
-                        : "text-white hover:bg-[#d36301]"
+                        ? "bg-[#075c79] text-white"
+                        : "text-white hover:bg-[#075c79]"
                     }`}
                     onClick={() => handleInnerTabClick("change-password")}
                   >
@@ -217,8 +217,8 @@ const Sidebar = () => {
                 to="/admin/dashboard/notifications"
                 className={`flex items-center p-2 rounded-lg ${
                   activeTab === "notifications"
-                    ? "bg-[#d36301] text-white"
-                    : "text-white hover:bg-[#d36301]"
+                    ? "bg-[#075c79] text-white"
+                    : "text-white hover:bg-[#075c79]"
                 }`}
                 onClick={() => handleMainTabClick("notifications")}
               >
@@ -229,11 +229,11 @@ const Sidebar = () => {
           </ul>
 
           {/* Logout */}
-          <div className="mt-auto pt-6 border-t border-[#ffa04c]">
+          <div className="mt-auto pt-6 border-t border-[#298aaa]">
             <button
               type="button"
               onClick={handleLogout}
-              className="flex items-center p-2 rounded-lg text-white hover:bg-[#d36301] w-full"
+              className="flex items-center p-2 rounded-lg text-white hover:bg-[#075c79] w-full"
             >
               <MdLogout className="w-5 h-5 text-[#D32F2F]" />
               <span className="ml-3">Logout</span>

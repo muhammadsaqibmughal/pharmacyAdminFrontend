@@ -46,7 +46,7 @@ const AdminResetPassword = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br bg-[#F5F5F5] flex items-center justify-center">
       <div className="bg-white shadow-2xl rounded-2xl p-10 w-full max-w-md">
-        <h2 className="text-2xl font-bold text-center text-[#ffa04c] mb-6">
+        <h2 className="text-2xl font-bold text-center text-[#298aaa] mb-6">
           Reset Password
         </h2>
 
@@ -78,7 +78,7 @@ const AdminResetPassword = () => {
                 className={`w-full px-4 py-2 text-l border rounded-md text-[#211221] shadow-sm focus:outline-none focus:ring-2 ${
                   formik.touched.password && formik.errors.password
                     ? "border-[#D32F2F] focus:ring-red-300"
-                    : "border-gray-300 focus:ring-[#ffa04c]"
+                    : "border-gray-300 focus:ring-[#298aaa]"
                 }`}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
@@ -106,7 +106,7 @@ const AdminResetPassword = () => {
                   formik.touched.confirmPassword &&
                   formik.errors.confirmPassword
                     ? "border-[#D32F2F] focus:ring-red-300"
-                    : "border-gray-300 focus:ring-[#ffa04c]"
+                    : "border-gray-300 focus:ring-[#298aaa]"
                 }`}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
@@ -123,7 +123,7 @@ const AdminResetPassword = () => {
             <button
               type="submit"
               disabled={formik.isSubmitting}
-              className="w-full bg-[#ffa04c] hover:bg-[#e77008] text-white font-semibold py-2 px-4 rounded-md transition duration-300"
+              className="w-full bg-[#298aaa] hover:bg-[#075c79] text-white font-semibold py-2 px-4 rounded-md transition duration-300"
             >
               {formik.isSubmitting ? "Resetting..." : "Reset Password"}
             </button>
@@ -132,7 +132,7 @@ const AdminResetPassword = () => {
 
         <div className="mt-6 text-center text-sm text-[#757575]">
           Remembered your password?{" "}
-          <Link to="/admin/login" className="text-[#ffa04c] hover:underline">
+          <Link to="/admin/login" className="text-[#298aaa] hover:underline">
             Login
           </Link>
         </div>

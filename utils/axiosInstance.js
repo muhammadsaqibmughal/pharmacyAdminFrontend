@@ -1,9 +1,8 @@
-
-import axios from 'axios';
+import axios from "axios";
 
 const api = axios.create({
-  baseURL: 'http://localhost:5000/api', 
-  withCredentials: true, 
+  baseURL: "http://localhost:5000/api",
+  withCredentials: true,
 });
 
 api.interceptors.request.use(
@@ -15,8 +14,19 @@ api.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error.response && error.response.status === 401) {
-      console.warn('Unauthorized! Redirecting to login...');
-      window.location.href = '/admin/login'; 
+      const currentPath = window.location.pathname;
+
+      if (currentPath !== "/admin/login") {
+        console.warn(
+          "Unauthorized! Clearing storage and redirecting to admin login..."
+        );
+
+        localStorage.removeItem("user");
+
+        document.cookie = "userRole=; Max-Age=0; path=/";
+        document.cookie = "is_auth=; Max-Age=0; path=/";
+        window.location.href = "/admin/login";
+      }
     }
     return Promise.reject(error);
   }

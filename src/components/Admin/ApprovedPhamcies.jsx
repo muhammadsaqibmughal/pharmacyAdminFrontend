@@ -36,9 +36,6 @@ const ApprovedPharmacies = () => {
     return <div className="text-center py-4 text-red-500">{error}</div>;
   }
 
-  if (!approved || approved.length === 0) {
-    return <div className="text-center py-4">No approved pharmacies found.</div>;
-  }
 
   return (
     <div>

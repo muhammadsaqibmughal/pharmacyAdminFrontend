@@ -3,6 +3,9 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { Eye, ArrowLeft } from "lucide-react";
 import { approvedPharmacies, rejectPharmacies } from "../api/admin";
 
+import Map, { Marker, NavigationControl } from "react-map-gl";
+import "mapbox-gl/dist/mapbox-gl.css";
+
 const PharmacyDetailPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
@@ -10,7 +13,7 @@ const PharmacyDetailPage = () => {
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  const [selectedImage, setSelectedImage] = useState(null); // For modal image
+  const [selectedImage, setSelectedImage] = useState(null);
 
   if (!pharmacy) {
     return (
@@ -33,7 +36,7 @@ const PharmacyDetailPage = () => {
         setError("Error approving pharmacy. Please try again.");
       }
     } catch (err) {
-      console.log(err)
+      console.error(err);
       setError("Error approving pharmacy. Please try again.");
     } finally {
       setLoading(false);
@@ -51,8 +54,8 @@ const PharmacyDetailPage = () => {
         setError("Error rejecting pharmacy. Please try again.");
       }
     } catch (err) {
+      console.error(err);
       setError("Error rejecting pharmacy. Please try again.");
-      console.log(err);
     } finally {
       setLoading(false);
     }
@@ -64,17 +67,13 @@ const PharmacyDetailPage = () => {
 
   return (
     <div className="p-4 sm:p-6 md:p-8 bg-[#F5F5F5] min-h-screen">
-
-      {/* ✅ Image Modal */}
+      {/* Image Modal */}
       {selectedImage && (
         <div
           className="fixed inset-0 bg-black bg-opacity-80 flex justify-center items-center z-50"
           onClick={() => setSelectedImage(null)}
         >
-          <div
-            className="relative"
-            onClick={(e) => e.stopPropagation()} // prevents closing when clicking the image
-          >
+          <div className="relative" onClick={(e) => e.stopPropagation()}>
             <img
               src={selectedImage}
               alt="Document Preview"
@@ -142,7 +141,8 @@ const PharmacyDetailPage = () => {
                   : "text-[#298aaa]"
               }`}
             >
-              {pharmacy.status.charAt(0).toUpperCase() + pharmacy.status.slice(1)}
+              {pharmacy.status.charAt(0).toUpperCase() +
+                pharmacy.status.slice(1)}
             </span>
           </div>
 
@@ -151,10 +151,12 @@ const PharmacyDetailPage = () => {
             {pharmacy.manager?.name || "No Manager"}
           </div>
 
-          {/* ✅ Document Image Preview */}
+          {/* Document Image Preview */}
           <div className="sm:col-span-2">
             <span className="font-semibold">Documents:</span>
-            {(pharmacy.idFrontUrl || pharmacy.idBackUrl || pharmacy.licenseUrl) ? (
+            {pharmacy.idFrontUrl ||
+            pharmacy.idBackUrl ||
+            pharmacy.licenseUrl ? (
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-2">
                 {pharmacy.idFrontUrl && (
                   <div className="flex justify-center">
@@ -192,18 +194,32 @@ const PharmacyDetailPage = () => {
             )}
           </div>
 
-          {/* Location */}
+          {/* Mapbox Location */}
           <div className="sm:col-span-2">
             <span className="font-semibold">Location on Map:</span>
-            <div className="w-full h-40 sm:h-56 bg-gray-200 flex items-center justify-center text-gray-500 rounded-md">
-              {pharmacy.latitude && pharmacy.longitude ? (
-                <p>
-                  Lat: {pharmacy.latitude}, Lon: {pharmacy.longitude}
-                </p>
-              ) : (
-                <p className="text-gray-500">No location available</p>
-              )}
-            </div>
+            {pharmacy.latitude && pharmacy.longitude ? (
+              <div className="w-full h-56 mt-2 rounded-md overflow-hidden">
+                <Map
+                  initialViewState={{
+                    longitude: pharmacy.longitude,
+                    latitude: pharmacy.latitude,
+                    zoom: 14,
+                  }}
+                  style={{ width: "100%", height: "100%" }}
+                  mapStyle="mapbox://styles/mapbox/streets-v12"
+                  mapboxAccessToken="pk.eyJ1Ijoic2FxaWIxMjMzIiwiYSI6ImNtaHp4bzduODA2OWkya3BrNXFzMnBvYTcifQ._ZqfkUKxR6zoSopOWDIhiQ"
+                >
+                  <Marker
+                    longitude={pharmacy.longitude}
+                    latitude={pharmacy.latitude}
+                    color="red"
+                  />
+                  <NavigationControl position="top-right" />
+                </Map>
+              </div>
+            ) : (
+              <p className="text-gray-500 mt-2">No location available</p>
+            )}
           </div>
 
           <div className="sm:col-span-2">

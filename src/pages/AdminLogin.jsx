@@ -14,6 +14,7 @@ const AdminLogin = () => {
       setLoginError("");
       try {
         const res = await loginAdmin(values);
+        // debugger;
         if (res.data.status === "success") {
           localStorage.setItem("accessToken", res.data.access_token);
           localStorage.setItem("is_auth", true);

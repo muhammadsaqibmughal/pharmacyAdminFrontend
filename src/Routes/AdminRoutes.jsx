@@ -14,14 +14,14 @@ import AdminResetPassword from "../pages/AdminResetPassword";
 import PharmacyDetailPage from "../components/PharmacyDetailPage";
 
 const AdminProtectedRoute = () => {
-  const isAuth = Cookies.get("is_auth");
-  const role = Cookies.get("userRole");
+  const isAuth = localStorage.getItem("is_auth");
+  const role = localStorage.getItem("userRole");
 
-  if (isAuth !== "true") {
+  if (isAuth != "true") {
     return <Navigate to="/admin/login" replace />;
   }
 
-  if (role !== "admin") {
+  if (role != "admin") {
     return <Navigate to="/unauthorized" replace />;
   }
 

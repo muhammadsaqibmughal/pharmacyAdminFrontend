@@ -22,10 +22,7 @@ const Sidebar = () => {
   const navigate = useNavigate();
 
   const clearAllCookies = () => {
-    document.cookie.split(";").forEach((cookie) => {
-      const name = cookie.split("=")[0].trim();
-      document.cookie = `${name}=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/`;
-    });
+    localStorage.clear();
   };
 
   const handleLogout = () => {
@@ -109,7 +106,9 @@ const Sidebar = () => {
                 type="button"
                 onClick={handlePharmacyClick}
                 className={`flex items-center justify-between w-full p-2 rounded-lg ${
-                  activeTab === "pharmacy" ? "bg-[#075c79] text-white" : "text-white"
+                  activeTab === "pharmacy"
+                    ? "bg-[#075c79] text-white"
+                    : "text-white"
                 }`}
               >
                 <div className="flex items-center">
@@ -124,7 +123,9 @@ const Sidebar = () => {
               </button>
 
               <ul
-                className={`${isPharmacyOpen ? "block" : "hidden"} mt-2 space-y-2 pl-8`}
+                className={`${
+                  isPharmacyOpen ? "block" : "hidden"
+                } mt-2 space-y-2 pl-8`}
               >
                 <li>
                   <Link
@@ -163,7 +164,9 @@ const Sidebar = () => {
                 type="button"
                 onClick={handleAccountClick}
                 className={`flex items-center justify-between w-full p-2 rounded-lg ${
-                  activeTab === "account" ? "bg-[#075c79] text-white" : "text-white"
+                  activeTab === "account"
+                    ? "bg-[#075c79] text-white"
+                    : "text-white"
                 }`}
               >
                 <div className="flex items-center">
@@ -178,7 +181,9 @@ const Sidebar = () => {
               </button>
 
               <ul
-                className={`${isAccountOpen ? "block" : "hidden"} mt-2 space-y-2 pl-8`}
+                className={`${
+                  isAccountOpen ? "block" : "hidden"
+                } mt-2 space-y-2 pl-8`}
               >
                 <li>
                   <Link

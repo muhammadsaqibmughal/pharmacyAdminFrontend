@@ -1,12 +1,19 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "https://pharmacybackend-ick9.onrender.com/api",
-  withCredentials: true,
+  baseURL: "https://pharmacy-backend-five.vercel.app/api",
+  // no need for withCredentials since we are using Authorization header
 });
 
+// Add JWT from localStorage to every request
 api.interceptors.request.use(
-  (config) => config,
+  (config) => {
+    const token = localStorage.getItem("accessToken"); // get token from localStorage
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+    return config;
+  },
   (error) => Promise.reject(error)
 );
 
@@ -22,9 +29,7 @@ api.interceptors.response.use(
         );
 
         localStorage.removeItem("user");
-
-        document.cookie = "userRole=; Max-Age=0; path=/";
-        document.cookie = "is_auth=; Max-Age=0; path=/";
+        localStorage.removeItem("accessToken");
         window.location.href = "/admin/login";
       }
     }

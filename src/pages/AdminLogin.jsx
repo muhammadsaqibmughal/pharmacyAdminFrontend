@@ -15,6 +15,9 @@ const AdminLogin = () => {
       try {
         const res = await loginAdmin(values);
         if (res.data.status === "success") {
+          localStorage.setItem("accessToken", res.data.access_token);
+          localStorage.setItem("is_auth", true);
+          localStorage.setItem("userRole", res.data.user.role);
           resetForm();
           navigate("/admin/dashboard");
         } else {
@@ -61,7 +64,9 @@ const AdminLogin = () => {
               value={formik.values.email}
             />
             {formik.touched.email && formik.errors.email && (
-              <p className="text-[#D32F2F] text-sm mt-1">{formik.errors.email}</p>
+              <p className="text-[#D32F2F] text-sm mt-1">
+                {formik.errors.email}
+              </p>
             )}
           </div>
 
